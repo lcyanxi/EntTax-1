@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AuthConfig>
+    <proxy>com.sohu.cas.client.impl.AuthProxyImpl</proxy>
+    <properties>
+        <!--<property key="url" value="${cms.cas.host}" />-->
+        <property key="url" value="http://cas.cms5.sohu.com/" />
+
+
+        <property key="username" value="cms5" />
+        <property key="password" value="test" />
+        <property key="sec_code" value="a46a1a90-5e89-11df-8e19-001a6b4b5640" />
+    </properties>
+</AuthConfig>

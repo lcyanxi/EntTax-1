@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.replication.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="maxStatements" value="${jdbc.maxStatements}" />
+		<property name="breakAfterAcquireFailure" value="${jdbc.breakAfterAcquireFailure}" />
+	</bean>
+	<bean id="dgDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${dg.jdbc.url}" />
+		<property name="user" value="${dg.jdbc.username}" />
+		<property name="password" value="${dg.jdbc.password}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="maxStatements" value="${jdbc.maxStatements}" />
+		<property name="breakAfterAcquireFailure" value="${jdbc.breakAfterAcquireFailure}" />
+	</bean>
+	<bean id="mallDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${mall.jdbc.url}" />
+		<property name="user" value="${mall.jdbc.username}" />
+		<property name="password" value="${mall.jdbc.password}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="maxStatements" value="${jdbc.maxStatements}" />
+		<property name="breakAfterAcquireFailure" value="${jdbc.breakAfterAcquireFailure}" />
+	</bean>
+	<bean id="groupDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		  destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${group.jdbc.url}" />
+		<property name="user" value="${group.jdbc.username}" />
+		<property name="password" value="${group.jdbc.password}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="maxStatements" value="${jdbc.maxStatements}" />
+		<property name="breakAfterAcquireFailure" value="${jdbc.breakAfterAcquireFailure}" />
+	</bean>
+	<!-- 链接dgData数据库 -->
+	<bean id="dataDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		  destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${dgdata.jdbc.url}" />
+		<property name="user" value="${dgdata.jdbc.username}" />
+		<property name="password" value="${dgdata.jdbc.password}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="maxStatements" value="${jdbc.maxStatements}" />
+		<property name="breakAfterAcquireFailure" value="${jdbc.breakAfterAcquireFailure}" />
+	</bean>
+
+	<!-- 链接douguo_data数据库(旧的统计库) -->
+	<bean id="oldDouguoDataDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		  destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${old_douguo_data.jdbc.url}" />
+		<property name="user" value="${old_douguo_data.jdbc.username}" />
+		<property name="password" value="${old_douguo_data.jdbc.password}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="maxStatements" value="${jdbc.maxStatements}" />
+		<property name="breakAfterAcquireFailure" value="${jdbc.breakAfterAcquireFailure}" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	<bean id="dgJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+		<property name="dataSource">
+			<ref local="dgDataSource" />
+		</property>
+	</bean>
+	<bean id="mallJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+		<property name="dataSource">
+			<ref local="mallDataSource" />
+		</property>
+	</bean>
+    <bean id="groupJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+        <property name="dataSource">
+            <ref local="groupDataSource" />
+        </property>
+    </bean>
+    <bean id="dgDataJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+        <property name="dataSource">
+            <ref local="dataDataSource" />
+        </property>
+    </bean>
+	<bean id="oldDouguoDataJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+		<property name="dataSource">
+			<ref local="oldDouguoDataDataSource" />
+		</property>
+	</bean>
+
+</beans>

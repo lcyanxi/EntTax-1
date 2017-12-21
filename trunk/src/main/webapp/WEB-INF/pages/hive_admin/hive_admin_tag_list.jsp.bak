@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ page import="java.sql.PreparedStatement"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.sql.Statement"%>
+<%@ page import="java.sql.ResultSet"%>
+<%@ page import="java.sql.SQLException"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date,java.util.Map,java.util.HashMap"%>
+<%@ page import="javax.naming.Context"%>
+<%@ page import="javax.naming.InitialContext"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="org.codehaus.jackson.*"%>
+<%@ page import="org.codehaus.jackson.map.*"%>
+<%@ page import="org.codehaus.jackson.map.JsonMappingException"%>
+<%@ page import="org.codehaus.jackson.node.*"%>
+<%@page import="java.util.*"%>
+<%@page
+	import="java.io.File,
+    java.io.FileWriter,
+    java.io.IOException,
+    java.sql.Connection,
+    java.sql.DriverManager,
+    java.sql.ResultSet,
+    java.sql.SQLException,
+    java.sql.Statement"%>
+
+<%
+	request.setCharacterEncoding("utf8");
+	Class.forName("com.mysql.jdbc.Driver");
+	String table = request.getParameter("table");
+	String querySQL = "select tag from dg_tag where flag='0' and cate_id > 0";
+	//String jdbc = "jdbc:mysql://192.168.1.233:3306/dg2010?useUnicode=true&amp;characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
+	//String user = "hadoop";
+	//String pwd = "hadoop@2014)(*";
+
+	String jdbc = "jdbc:mysql://192.168.1.206:3306/dg2010?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
+	String user = "root";
+	String pwd = "aaaaaa";
+	Connection con = DriverManager.getConnection(jdbc, user, pwd);
+	Statement stmt = con.createStatement();
+	//      stmt.executeQuery(dropSQL); // 执行删除语句
+	//      stmt.executeQuery(createSQL); // 执行建表语句
+	//      stmt.executeQuery(insterSQL); // 执行插入语句
+	ResultSet res = stmt.executeQuery(querySQL); // 执行查询语句
+
+	//FileWriter fw = new FileWriter("/home/dg-hadoop/hive-admin-test.txt");
+	FileWriter fw = new FileWriter("/Users/zyz/test.txt");
+	while (res.next()) {
+		String tag = res.getString(1);
+		String counts = "你好呀";
+		System.out.println(tag + "," + counts + "\n");
+		fw.write(tag + "," + counts + "\n");
+	}
+	fw.flush();
+	fw.close();
+%>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

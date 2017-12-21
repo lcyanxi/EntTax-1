@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>ECharts</title>
+	<!-- 来自百度CDN -->
+	<script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-10/esl.js"></script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height:400px"></div>
+	<script type="text/javascript">
+        	// 路径配置
+	        require.config({
+		        paths:{ 
+        			'echarts' : 'http://echarts.baidu.com/build/echarts',
+				'echarts/chart/bar' : 'http://echarts.baidu.com/build/echarts'
+			}
+		});
+		// 使用
+	        require(
+	            [
+	                    'echarts',
+	                    'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+	                ],
+	                uf_callback
+        );
+	    function uf_callback(ec){
+	    	// 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('main')); 
+	    	var option = {
+	    		    color : [
+	    		             'rgba(255, 69, 0, 0.5)',
+	    		             'rgba(255, 150, 0, 0.5)',
+	    		             'rgba(255, 200, 0, 0.5)',
+	    		             'rgba(155, 200, 50, 0.5)',
+	    		             'rgba(55, 200, 100, 0.5)'
+	    		         ],
+	    		         title : {
+	    		             text: '漏斗图',
+	    		             subtext: '纯属虚构'
+	    		         },
+	    		         tooltip : {
+	    		             trigger: 'item',
+	    		           formatter: "<br/>{b} : {c}"
+	    		         },
+	    		         toolbox: {
+	    		             show : true,
+	    		             feature : {
+	    		                 mark : {show: true},
+	    		                 dataView : {show: true, readOnly: false},
+	    		                 restore : {show: true},
+	    		                 saveAsImage : {show: true}
+	    		             }
+	    		         },
+	    		         legend: {
+	    		             data : ['特卖会','商品浏览','下单','点击支付','支付成功']
+	    		         },
+	    		         calculable : true,
+	    		         series : [
+	    		             {
+	    		                 name:'预期',
+	    		                 type:'funnel',
+	    		                 x: '10%',
+	    		                 width: '80%',
+	    		                 itemStyle: {
+	    		                     normal: {
+	    		                         label: {
+	    		                             formatter: '{b}预期'
+	    		                         },
+	    		                         labelLine: {
+	    		                             show : false
+	    		                         }
+	    		                     },
+	    		                     emphasis: {
+	    		                         label: {
+	    		                             position:'inside',
+	    		                             formatter: '{b}预期 : {c}%'
+	    		                         }
+	    		                     }
+	    		                 },
+	    		                 data:[
+	    		                     {value:100, name:'特卖会'},
+	    		                     {value:80, name:'商品浏览'},
+	    		                     {value:60, name:'下单'},
+	    		                     {value:40, name:'点击支付'},
+	    		                     {value:20, name:'支付成功'}
+	    		                 ]
+	    		             },
+	    		             {
+	    		                 name:'实际',
+	    		                 type:'funnel',
+	    		                 x: '10%',
+	    		                 width: '80%',
+	    		                 maxSize: '80%',
+	    		                 itemStyle: {
+	    		                     normal: {
+	    		                         borderColor: '#fff',
+	    		                         borderWidth: 2,
+	    		                         label: {
+	    		                             position: 'inside',
+	    		                             formatter: '{c}%',
+	    		                             textStyle: {
+	    		                                 color: '#fff'
+	    		                             }
+	    		                         }
+	    		                     },
+	    		                     emphasis: {
+	    		                         label: {
+	    		                             position:'inside',
+	    		                             formatter: '{b}实际 : {c}%'
+	    		                         }
+	    		                     }
+	    		                 },
+	    		                 data:[
+	    		                     {value:100, name:'特卖会'},
+	    		                     {value:21.2, name:'商品浏览'},
+	    		                     {value:0.6, name:'下单'},
+	    		                     {value:20, name:'点击支付'},
+	    		                     {value:15, name:'支付成功'}
+	    		                 ]
+	    		             }
+	    		         ]
+	    		     };
+	    	// 为echarts对象加载数据 
+	        myChart.setOption(option); 
+	    }
+		
+		
+		function uf_callback1(ec){
+            // 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('main')); 
+										                    
+            var option = {
+                tooltip: {
+                    show: true
+                },
+                legend: {
+                    data:['销量']
+																		                    },
+                xAxis : [
+																		                        {
+                        type : 'category',
+                            data : ["衬衫1","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+																																			                            }
+          ],
+        series : [
+                {
+                    "name":"销量",
+                    "type":"bar",
+                    "data":[5, 20, 40, 10, 10, 20]
+            }
+        ]
+     };
+    // 为echarts对象加载数据 
+    myChart.setOption(option); 
+  }
+	</script>
+</body>

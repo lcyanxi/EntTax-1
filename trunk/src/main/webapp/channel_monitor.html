@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <style type="text/css">
+        table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size:11px; color:#333333; border-width: 1px;
+        border-color: #666666; border-collapse: collapse;
+        }
+        table.gridtable th {
+        border-width: 1px; padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+        }
+        table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #ffffff;
+        text-align:center;
+        }
+        /* 上箭头 */
+        .arrow-up {
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent; /* 左边框的宽 */
+        border-right: 7px solid transparent; /* 右边框的宽 */
+        border-bottom: 7px solid #00ff29; /* 下边框的长度|高,以及背景色 */
+        font-size: 0;
+        line-height: 0;
+        }
+        /* 下箭头 */
+        .arrow-down{
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 7px solid #ff0000;
+        font-size: 0;
+        line-height: 0;
+        }
+        /* td 中字体颜色 */
+        .riseColor{
+        color:green;
+        }
+        .reduceColor{
+        color:red;
+        }
+
+    </style>
+    <style type="text/css">
+        .fixed {position: relative;}
+        .scroll_layer
+        {
+        height: 500px;
+        overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+<h1>一、整体数据</h1>
+<table class="gridtable">
+    <tr>
+        <td style="background-color:#ff7f00" rowspan="2">整体数据</td>
+        <td style="background-color:#ff7f00" colspan="2">新增激活用户</td>
+        <td style="background-color:#ff7f00" colspan="2">活跃用户</td>
+    </tr>
+    <tr>
+        <td style="background-color:#ff7f00" colspan="2">460,225</td>
+        <td style="background-color:#ff7f00" colspan="2">13,728,790</td>
+    </tr>
+    <tr>
+        <td rowspan="4">一周趋势</td>
+        <td align="center">
+            <div style="margin-left:47%" class="arrow-up"></div>
+        </td>
+        <td>
+            <div style="margin-left:40%" class="arrow-down"></div>
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3.74%</td>
+        <td>3.47%</td>
+        <td>13.23%</td>
+        <td>22.0%</td>
+    </tr>
+    <tr>
+        <td>环比</td>
+        <td>同比</td>
+        <td>环比</td>
+        <td>同比</td>
+    </tr>
+    <tr>
+        <td colspan="2"><img width="160" height="100" style="margin:10px; padding:10px;"
+                             src="http://jj.emuch.net/image2/7d/d6/1840745_1366638526_262.jpg"/></td>
+        <td colspan="2"><img width="160" height="100" style="margin:10px; padding:10px;"
+                             src="http://jj.emuch.net/image2/7d/d6/1840745_1366638526_262.jpg"/></td>
+    </tr>
+    <tr>
+        <td style="background-color:#ffb570" >日期</td>
+        <td style="background-color:#ffb570" colspan="2">新增用户</td>
+        <td style="background-color:#ffb570" colspan="2">活跃用户</td>
+    </tr>
+    <tr>
+        <td nowrap='nowrap'>2015-05-22</td>
+        <td colspan="2">13234370</td>
+        <td colspan="2">13234370</td>
+    </tr>
+    <tr>
+        <td>2015-05-23</td>
+        <td colspan="2">13234370</td>
+        <td colspan="2">13234370</td>
+    </tr>
+    <tr>
+        <td>2015-05-24</td>
+        <td colspan="2">13234370</td>
+        <td colspan="2">13234370</td>
+    </tr>
+    <tr>
+        <td>2015-05-25</td>
+        <td colspan="2">13234370</td>
+        <td colspan="2">13234370</td>
+    </tr>
+    <tr>
+        <td>2015-05-26</td>
+        <td colspan="2">13234370</td>
+        <td colspan="2">13234370</td>
+    </tr>
+    <tr>
+        <td>2015-05-27</td>
+        <td colspan="2">13234370</td>
+        <td colspan="2">13234370</td>
+    </tr>
+</table>
+
+<h1>二、分类渠道</h1>
+<table class="gridtable">
+    <tr>
+        <td style="background-color:#ff7f00" rowspan="2">分类渠道新增用户分布</td>
+        <td style="background-color:#ff7f00" colspan="3">新增激活用户</td>
+        <td style="background-color:#ff7f00" rowspan="2">新增用户占比</td>
+        <td style="background-color:#ff7f00" rowspan="2">渠道类别</td>
+        <td style="background-color:#ff7f00" rowspan="2">新增激活</td>
+        <td style="background-color:#ff7f00" rowspan="2">新增激活占比</td>
+    </tr>
+    <tr>
+        <td style="background-color:#ff7f00">新增激活用户</td>
+        <td style="background-color:#ff7f00">环比</td>
+        <td style="background-color:#ff7f00">同比</td>
+    </tr>
+    <tr>
+        <td rowspan="5">线上</td>
+        <td rowspan="5">435,345</td>
+        <td rowspan="5" class="riseColor">5.69%</td>
+        <td rowspan="5" class="reduceColor">-0.89%</td>
+        <td rowspan="5">88.7%</td>
+        <td>IOS商店</td>
+        <td>23423423</td>
+        <td>27.8%</td>
+    </tr>
+    <tr>
+        <td>线上市场</td>
+        <td>234,545</td>
+        <td>24.2%</td>
+    </tr>
+    <tr>
+        <td>H5</td>
+        <td>454,232</td>
+        <td>21.2%</td>
+    </tr>
+    <tr>
+        <td>APP</td>
+        <td>342,23</td>
+        <td>12.5%</td>
+    </tr>
+    <tr>
+        <td>弃用渠道</td>
+        <td>23,423</td>
+        <td>4,4%</td>
+    </tr>
+    <tr>
+        <td rowspan="2">线下</td>
+        <td rowspan="2">45,345</td>
+        <td rowspan="2">7.69%</td>
+        <td rowspan="2">-4.69%</td>
+        <td rowspan="2">12.3%</td>
+        <td>厂商商店</td>
+        <td>23,345</td>
+        <td>12.4%</td>
+    </tr>
+    <tr>
+        <td>运营商商店</td>
+        <td>234,223</td>
+        <td>5.6%</td>
+    </tr>
+    <tr>
+        <td colspan="8"><img width="560" height="500"
+                             src="http://img4.imgtn.bdimg.com/it/u=3389834455,3632645419&fm=21&gp=0.jpg" alt=""/></td>
+    </tr>
+</table>
+<h1>三、TOP20</h1>
+<table class="gridtable">
+    <tr>
+        <td style="background-color:#ff7f00" rowspan="2">排名</td>
+        <td style="background-color:#ff7f00" rowspan="2" colspan="3">渠道名称</td>
+        <td style="background-color:#ff7f00" colspan="3">新增用户</td>
+        <td style="background-color:#ff7f00" rowspan="2">活跃用户</td>
+        <td style="background-color:#ff7f00" rowspan="2">新用户占比</td>
+    </tr>
+    <tr>
+        <td style="background-color:#ff7f00">新增用户</td>
+        <td style="background-color:#ff7f00">环比</td>
+        <td style="background-color:#ff7f00">同比</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>APPStore</td>
+        <td>
+            <div style="margin-left:10%" class="arrow-up"></div>
+        </td>
+        <td>+20</td>
+        <td>57,999</td>
+        <td>10.01%</td>
+        <td>4.24%</td>
+        <td>234,234,2234</td>
+        <td>12.87%</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>APPStore</td>
+        <td>
+            <div style="margin-left:10%" class="arrow-down"></div>
+        </td>
+        <td>-7</td>
+        <td>57,999</td>
+        <td>10.01%</td>
+        <td>4.24%</td>
+        <td>234,234,2234</td>
+        <td>12.87%</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>APPStore</td>
+        <td>=</td>
+        <td></td>
+        <td>57,999</td>
+        <td>10.01%</td>
+        <td>4.24%</td>
+        <td>234,234,2234</td>
+        <td>12.87%</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>APPStore</td>
+        <td>new</td>
+        <td></td>
+        <td>57,999</td>
+        <td>10.01%</td>
+        <td>4.24%</td>
+        <td>234,234,2234</td>
+        <td>12.87%</td>
+    </tr>
+
+
+</table>
+</body>
+</html>

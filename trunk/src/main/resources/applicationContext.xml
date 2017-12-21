@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<aop:aspectj-autoproxy />
+	<context:annotation-config />
+	<context:component-scan base-package="com.douguo.dc" />
+	<context:component-scan base-package="com.zyz.open" />
+	<context:component-scan base-package="com.douguo.dg" />
+	<context:component-scan base-package="com.douguo.crm" />
+	<context:component-scan base-package="com.douguo.uprofile" />
+	<context:component-scan base-package="com.douguo.es" />
+	
+	<mvc:annotation-driven />
+	<!-- 权限拦截器 -->
+	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/**"/> <bean 
+		id="permissionsInterceptor" class="com.douguo.dc.interceptor.PermissionsInterceptor"/> 
+		</mvc:interceptor> </mvc:interceptors> -->
+	<bean id="userInfoUtil" class="com.douguo.dc.user.utils.UserInfoUtil"
+		factory-method="getInstance" />
+
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:/site-config.properties</value>
+			</list>
+		</property>
+	</bean>
+	<import resource="classpath:/spring-dao.xml" />
+
+	<!-- spring quartz -->
+	<bean id="jobStart" class="com.douguo.dc.mail.service.TimeSendMailService">
+	</bean>
+	<!-- 豆果电商邮件 -->
+	<bean id="jobOrderSumMailDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="jobStart" />
+		<property name="targetMethod" value="sendOrderSumMail" />
+	</bean>
+	<bean id="jobOrderSumMailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobOrderSumMailDetail" />
+		<property name="cronExpression" value="0 12 19 * * ?" />
+	</bean>
+
+	<!-- 豆果客户端渠道邮件 -->
+	<!--bean id="jobClientChannelSumMailDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="jobStart" />
+		<property name="targetMethod" value="sendSumMail" />
+	</bean>
+	<bean id="jobClientChannelSumMailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobClientChannelSumMailDetail" />
+		<property name="cronExpression" value="0 18 10 * * ?" />
+	</bean-->
+	
+	<!-- 自动定时邮件 -->
+	<bean id="jobTimeSendMail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="jobStart" />
+		<property name="targetMethod" value="timeSendMail" />
+	</bean>
+	<bean id="jobTimeSendMailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobTimeSendMail" />
+		<property name="cronExpression" value="0 0/1 * * * ?" />
+	</bean>
+
+	<bean autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!--ref bean="jobOrderSumMailTrigger" />
+				<ref bean="jobClientChannelSumMailTrigger" /-->
+				<ref bean="jobTimeSendMailTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

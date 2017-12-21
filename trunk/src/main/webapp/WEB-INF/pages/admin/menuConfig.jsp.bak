@@ -1,0 +1,132 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="com.susing.sql.ConnectionManager" %>
+<%@ page import="com.susing.EasyConnection" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date,java.util.Map,java.util.HashMap" %>
+<%@ page import="javax.sql.DataSource" %>
+<%@ page import="javax.naming.Context" %>
+<%@ page import="javax.naming.InitialContext" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="org.codehaus.jackson.*" %>
+<%@ page import="org.codehaus.jackson.map.*" %>
+<%@ page import="org.codehaus.jackson.map.JsonMappingException" %>
+<%@ page import="org.codehaus.jackson.node.*" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>Menu配置管理</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="../jqgrid/themes/redmond/jquery-ui-1.8.1.custom.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="../jqgrid/themes/ui.jqgrid.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="../jqgrid/themes/ui.multiselect.css" />
+	<script src="../jqgrid/js/jquery.js" type="text/javascript"></script>
+	<script src="../jqgrid/js/jquery-ui-1.8.1.custom.min.js" type="text/javascript"></script>
+	<script src="../jqgrid/js/jquery.layout.js" type="text/javascript"></script>
+	<script src="../jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+	<script src="../jqgrid/js/ui.multiselect.js" type="text/javascript"></script>
+	<script src="../jqgrid/js/jquery.jqGrid.js" type="text/javascript"></script>
+	<script src="../jqgrid/js/jquery.tablednd.js" type="text/javascript"></script>
+	<script src="../jqgrid/js/jquery.contextmenu.js" type="text/javascript"></script>
+</head>
+<%
+	request.setCharacterEncoding("utf-8");
+	String strType = (String)request.getParameter("menuType");
+	System.out.println("*******" + strType);
+	//如果是保存
+	if(strType != null && "add".equals(strType)){
+		String menuID = (String)request.getParameter("menuID");
+		String parentID = (String)request.getParameter("parentID");
+		String functionID = (String)request.getParameter("functionID");
+		String level = (String)request.getParameter("level");
+		String sortID = (String)request.getParameter("sortID");
+		String visiable = (String)request.getParameter("visiable");
+		
+		EasyConnection con = null;
+		List list = new ArrayList();
+
+		try {
+			con = ConnectionManager.currentManager().getConnection("logstatDB");
+			 //构造查询sql语句
+
+			String strSQL = "insert into menu (menuID,parentID,functionID,level,sortID,visiable) values (?,?,?,?,?,?);";
+			System.out.println("*******" + strSQL);
+
+			String[][] re = new String[1][6];			
+			re[0][0] = menuID;			
+			re[0][1] = parentID;
+			re[0][2] = functionID;
+			re[0][3] = level;
+			re[0][4] = sortID;
+			re[0][5] = visiable;
+			int[] data = con.exec(strSQL,re);
+
+		} catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        con.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+					  
+	  	response.sendRedirect("menuConfig.jsp");
+	}//end add
+	else if(strType != null && "json".equals(strType)){
+		System.out.println("======== json ");
+	}
+%>
+<body>
+	<table id="tb_menu"></table>
+	<div id="pager_menu"></div>
+
+	<div>
+		<br>
+		<form name="addForm" action="menuConfig.jsp" method="post">
+			menuID：<input type="text" name="menuID" id="menuID" value=""/><br>
+			<br>
+			parentID：<input type="text" name="parentID" id="parentID" value=""/><br>
+			<br>
+			functionID：<input type="text" name="functionID" id="functionID" value=""/><br>
+			<br>
+			level:<input type="text" name="level" id="level" value=""/><br>
+			<br>
+			sortID：<input type="text" name="sortID" id="sortID" value=""/><br>
+			visiable：<input type="text" name="visiable" id="visiable" value=""/><br>
+			<input type="hidden" value="add" id="menuType" name="menuType">
+			<button class="submit" type="submit">提交修改</button>
+		</form>
+	</div>
+	<script>
+		jQuery("#tb_menu").jqGrid({
+			url:'menuConfig.jsp?menuType=json',
+			datatype: "json",
+			colNames:['menuID','parentID', 'functionID', 'level','sortID','visiable','functionName'],
+			colModel:[
+				{name:'id',index:'id', width:55,sortable:false},
+				{name:'userID',index:'userID', width:90,sortable:false},
+				{name:'name',index:'name asc, invdate', width:100,sortable:false},
+				{name:'amount',index:'amount', width:80, align:"right",sortable:false},
+				{name:'tax',index:'tax', width:80, align:"right",sortable:false},		
+				{name:'total',index:'total', width:80,align:"right",sortable:false},		
+				{name:'note',index:'note', width:150, sortable:false}
+			],
+			height:300,
+			width:877,
+			rowNum:10,
+			rowList:[10,20,30],
+			pager: '#pager_menu',
+			sortname: 'id',
+			viewrecords: true,
+			sortorder: "desc",
+			caption:"Menu配置管理"
+		});
+		jQuery("#tb_menu").jqGrid('navGrid','#pager_menu',{edit:false,add:false,del:false});
+	</script>
+</body>
+</html>

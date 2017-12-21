@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema name="dg_test_cube">
+    <Cube name="Cube_Test">
+        <Table name="tb_salary"/>
+        <Dimension name="Employee" foreignKey="employee_id">
+            <Hierarchy hasAll="true" primaryKey="employee_id">
+                <Table name="tb_employee"/>
+                <Level name="employeeId" column="employee_id" uniqueMembers="true">
+                    <Property name="employeeName" column="employee_name"/>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Time" foreignKey="time_id">
+            <Hierarchy hasAll="false" primaryKey="time_id">
+                <Table name="tb_time"/>
+                <Level name="year" column="the_year" uniqueMembers="false"/>
+                <Level name="month" column="the_month" uniqueMembers="false"/>
+            </Hierarchy>
+        </Dimension>
+        <Measure name="Salary" column="salary" aggregator="sum"/>
+    </Cube>
+    <Cube name="Cube_order">
+        <!--事实表(fact table)-->
+        <Table name="dg_order"/>
+        <!--日期维度-->
+        <Dimension name="日期" foreignKey="createtime">
+            <Hierarchy hasAll="false" allMemberName="全部日期" primaryKey="statdate">
+                <Table name="dwh_date"/>
+                <Level name="year" column="year" uniqueMembers="false" />
+                <Level name="month" column="month" uniqueMembers="false" />
+                <Level name="statdate" column="statdate" uniqueMembers="true" />
+                <Level name="quarter" column="quarter"  uniqueMembers="false"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="支付状态" >
+            <Hierarchy hasAll="false" allMemberName="全部状态" >
+                <Level name="支付状态" column="pay_flag"  uniqueMembers="false"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="金额" column="total_price" aggregator="sum"/>
+        <Measure name="订单数-去重" column="order_id" aggregator="distinct-count"/>
+        <Measure name="订单数-不去重" column="order_id" aggregator="count"/>
+    </Cube>
+</Schema>

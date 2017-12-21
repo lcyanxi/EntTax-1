@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema name="tezz">
+    <Cube name="dg_mall_sales">
+
+        <!-- 事实表(fact table) -->
+        <Table name="sale"/>
+
+        <!-- 客户维 -->
+        <Dimension name="客户性别" foreignKey="cusId">
+            <Hierarchy hasAll="true" allMemberName="所有性别" primaryKey="cusId">
+                <Table name="Customer"></Table>
+                <Level name="gender" column="gender"></Level>
+            </Hierarchy>
+        </Dimension>
+
+        <!-- 产品类别维 -->
+        <Dimension name="产品类别" foreignKey="proId">
+            <Hierarchy hasAll="true" allMemberName="所有产品" primaryKey="proId" primaryKeyTable="product">
+                <join leftKey="proTypeId" rightKey="proTypeId">
+                    <Table name="product"/>
+                    <Table name="producttype"></Table>
+                </join>
+                <Level name="proTypeId" column="proTypeId" nameColumn="proTypeName" uniqueMembers="true" table="producttype"/>
+                <Level name="proId" column="proId" nameColumn="proName"  uniqueMembers="true" table="product"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="数量" column="number" aggregator="sum" datatype="Numeric"/>
+
+        <Measure name="总销售额" aggregator="sum" formatString="￥#,##0.00">
+            <!-- unitPrice*number所得值的列 -->
+            <MeasureExpression>
+                <SQL dialect="generic">(unitPrice*number)</SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <CalculatedMember name="平均单价" dimension="Measures">
+            <Formula>[Measures].[总销售额] / [Measures].[数量]</Formula>
+            <CalculatedMemberProperty name="FORMAT_STRING" value="￥#,##0.00"/>
+        </CalculatedMember>
+    </Cube>
+</Schema>

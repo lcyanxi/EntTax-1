@@ -1,0 +1,96 @@
+*{ margin:0px;font-family: Arial, Helvetica, sans-serif;font-size: 12px;}
+img {border:0}
+form {padding:0;margin:0}
+input {border:1px solid #ADADAD}
+body {margin:0 auto; background-color:#FFF;width:1119px;}
+table {width:925px;}
+table .referer {word-break:break-all;}
+table .titleName {background-color:#F9F9F9;}
+a:link, a:visited, a:active, a:focus {color:#336699;text-decoration:none;}
+a:hover {color:#339900;text-decoration:underline}
+  
+ul, ol , li { list-style:none; margin:0; padding:0; } 
+
+#MenuList {float:left;width:17%;margin:1px 0px;background-color:#F1F1F1;border-top:1px solid #CAC9C3;}
+#MenuList a {display:block;margin-left:10px;height:25px;font-size:12px;	line-height:25px;text-align:center;border-left:1px solid #F1F1F1;border-top:1px solid #F1F1F1;border-bottom:1px solid #F1F1F1;border-right:1px solid #CAC9C3;}
+#MenuList a:hover {border:1px solid #CAC9C3;}
+#MenuList .nav-current {background-color:#FFF;font-weight:bold;border-left:1px solid #CAC9C3;border-top:1px solid #CAC9C3;border-bottom:1px solid #CAC9C3;border-right:1px solid white;}
+#MenuList div {height:800px;margin:0px;border-right:1px solid #CAC9C3;}
+
+#RightList {width:925px;float:right}
+
+#Search {padding-left:25px;color:#7D8381;font-size:12px;background-color:#F9F9F9;padding-bottom:10px;}
+#Search input { width:100px;}
+#Search .formArea {padding-top:9px;}
+#Search .tipArea {padding-top:9px;}
+
+.listBlock {border:1px solid #C7C8C3;padding:1px;margin-bottom:10px;}
+
+.submit {background-color:#85BE3D;border:1px solid #B3C58F;color:white;font-size:12px;font-weight:bold;padding-top:2px;margin-left:10px;}
+
+.title {text-align:center;padding-top:3px;padding-bottom:7px;font-size: 14px;color:#339900;}
+
+.sysTitle {text-align:center;padding-top:3px;padding-bottom:7px;font-size:16px;font-weight:bold;}
+
+#login { width:500px; margin:200px auto; }
+
+
+.qn_title { padding:4px 0 0 15px; margin:0 auto; width:400px; height:30px; font:bold 14px/28px arial; background:url(http://source.qunar.com/site/images/2011/QN1HP1.png) 0 0 repeat-x; }
+.qn_title .info { float:right; display:inline; padding-right:5px; font:normal 12px/29px simsun,arial,sans-serif; }
+.qn_title ul { width:215px; }
+.qn_title li { float:left; display:inline; padding-left:10px; cursor:pointer; }
+.qn_title li span { float:left; padding-right:10px; padding-bottom:2px; cursor:pointer; }
+.qn_title li.active { background:url(http://source.qunar.com/site/images/2011/QN1HP1.png) 0 -44px no-repeat; cursor:default; }
+.qn_title li.active span { background:url(http://source.qunar.com/site/images/2011/QN1HP1.png) 100% -79px no-repeat; cursor:default; }
+
+.ct { width:400px; margin:0 auto; padding:10px; text-align:center;}
+.hide { display:none; }
+.pager{
+	margin-top:20px;
+	padding:10px;
+	text-align:right;
+	border:1px solid #c0c0c0;
+		
+}
+.msg {
+	padding: 10px;
+	margin: 10px;
+	border: 1x dashed #FFFF33;
+	background-color: #FFFFCC;
+}
+
+.listTable {
+	margin-top:5px;
+	border-width: 1px 0 0 1px;
+	border-style: solid;
+	border-color: #C7C8C3;
+}
+
+.listTable th {
+	border-width: 0 1px 1px 0;
+	border-style: solid;
+	border-color: #C7C8C3;
+	background-color: #F0F0F0;
+	text-align: center;
+	font-family: 微软雅黑;
+	font-size: 12px;
+	
+}
+
+.listTable td {
+	border-width: 0 1px 1px 0;
+	border-style: solid;
+	border-color: #C7C8C3;
+	font-family: 微软雅黑;
+	font-size: 12px;
+	padding: 2px;
+	
+}
+
+.evenRow {
+	background-color: #f4f7fc;
+}
+
+.overRow {
+	background-color: #FFFFCC;
+}
